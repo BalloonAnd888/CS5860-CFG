@@ -1,12 +1,6 @@
 int a = 5;
 double b = 10.5;
-float c;
 
-c = a + b;
 a = a * 2;
 b = b - 3.5;
-c = c / 2;
 a += 1;
-b -= 2;
-c *= 3;
-a /= 2;
