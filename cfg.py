@@ -24,6 +24,8 @@ def handleIf(lines, i, nodes, nodeID, edges):
     if i + 1 < len(lines):
         edges.append((ifNode.nodeID, nodeID))
 
+    print(edges)
+    print(i, nodeID)
 
     return i, nodeID
 
@@ -72,6 +74,14 @@ def cfg(filename):
 
         i += 1
 
+    return nodes, edges
+
+if __name__ == "__main__":
+    print("Statement")
+    nodes, edges = cfg("examples/statement/statement.txt")
+    # print("if")
+    # nodes, edges = cfg("examples/if/if.txt")
+
     print("\nVertices (Nodes):")
     for n in nodes:
         print(f"({n.nodeID}) {n.statement}")
@@ -79,11 +89,4 @@ def cfg(filename):
     print("\nEdges (Connections):")
     for edge in edges:
         print(f"{edge[0]} -> {edge[1]}")
-
-
-if __name__ == "__main__":
-    # print("Statement")
-    # cfg("examples/statement/statement.txt")
-    print("if")
-    cfg("examples/if/if.txt")
-        
+       
