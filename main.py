@@ -83,7 +83,7 @@ def cfg(filename):
 
 if __name__ == "__main__":
     # print("Statement")
-    # cfg("statement.txt")
+    # cfg("examples/statement/statement.txt")
     print("if")
-    cfg("if.txt")
+    cfg("examples/if/if.txt")
         
