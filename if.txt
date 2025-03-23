@@ -2,11 +2,15 @@ int a = 5;
 double b = 10.5;
 float c;
 
+// If Statements
 if (a > b) 
 { 
     c = a + b;
     a = b + c;
 }
+/* This is a multiline comment
+Multiple lines
+Even more lines */
 
 if (a > b) 
 { 

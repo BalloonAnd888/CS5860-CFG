@@ -30,11 +30,20 @@ def handleIf(lines, i, nodes, nodeID, edges):
 def cfg(filename):
     # Lines of code
     lines = []
+    inMultilineComment = False
     with open(filename, 'r') as file:
         for line in file:
-            if line != "\n":
-                lines.append(line.rstrip().lstrip())
-    
+            line = line.strip()
+
+            if "/*" in line:
+                inMultilineComment = True
+            if "*/" in line:
+                inMultilineComment = False
+                continue  
+
+            if line and not line.startswith("//") and not inMultilineComment:
+                lines.append(line)
+
     print(lines)
 
     # Create nodes
@@ -73,8 +82,8 @@ def cfg(filename):
 
 
 if __name__ == "__main__":
-    print("Statement")
-    cfg("statement.txt")
+    # print("Statement")
+    # cfg("statement.txt")
     print("if")
     cfg("if.txt")
         

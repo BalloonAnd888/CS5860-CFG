@@ -1,6 +1,13 @@
 int a = 5;
 double b = 10.5;
 
+// Statement 
 a = a * 2;
+
+/* More statements 
+Multiple line comment 
+More comments
+*/
+
 b = b - 3.5;
 a += 1;
