@@ -56,8 +56,7 @@ def handleElse(lines, i, nodes, nodeID, edges, ifNodeID):
     
     return i, nodeID
 
-def cfg(filename):
-    # Lines of code
+def parseLines(filename):
     lines = []
     inMultilineComment = False
     with open(filename, 'r') as file:
@@ -75,7 +74,11 @@ def cfg(filename):
 
     print(lines)
 
-    # Create nodes
+    return lines
+
+def cfg(filename):
+    lines = parseLines(filename)
+
     nodes = []
     nodeID = 1
 
