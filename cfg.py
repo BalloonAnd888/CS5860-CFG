@@ -21,12 +21,39 @@ def handleIf(lines, i, nodes, nodeID, edges):
             nodeID += 1
         i += 1
 
-    if i + 1 < len(lines):
+    if i + 1 < len(lines) and lines[i + 1].startswith("else"):
+        lastIfNode = nodeID - 1
+        i, nodeID = handleElse(lines, i + 1, nodes, nodeID, edges, ifNode.nodeID)
+        print("Out of Else")
+        if i + 1 < len(lines):
+            edges.append((lastIfNode, nodeID))
+    elif i + 1 < len(lines):
         edges.append((ifNode.nodeID, nodeID))
 
     print(edges)
     print(i, nodeID)
 
+    return i, nodeID
+
+def handleElse(lines, i, nodes, nodeID, edges, ifNodeID):
+    print("In Else")
+    i += 1
+    print(i)
+    firstStatementInElse = True
+    while lines[i] != "}" and i < len(lines):
+        if lines[i] != "{":
+            node = Node(nodeID, lines[i])
+            nodes.append(node)
+            if firstStatementInElse:
+                edges.append((ifNodeID, nodeID))
+                firstStatementInElse = False
+            else:
+                edges.append((nodes[-2].nodeID, nodeID))
+            print(node.nodeID, node.statement)
+            print(edges)
+            nodeID += 1
+        i += 1
+    
     return i, nodeID
 
 def cfg(filename):
@@ -60,7 +87,7 @@ def cfg(filename):
             if nodes:
                 edges.append((nodes[-1].nodeID, nodeID))
                 print(edges)
-            i, nodeID = handleIf(lines, i, nodes, nodeID, edges) # i = 3, nodeID = 4
+            i, nodeID = handleIf(lines, i, nodes, nodeID, edges)
             print("After handleIF", i, nodeID)
         elif lines[i] not in {"{", "}"}:
             print(lines[i], "Statement")
@@ -77,10 +104,12 @@ def cfg(filename):
     return nodes, edges
 
 if __name__ == "__main__":
-    print("Statement")
-    nodes, edges = cfg("examples/statement/statement.txt")
+    # print("Statement")
+    # nodes, edges = cfg("examples/statement/statement.txt")
     # print("if")
     # nodes, edges = cfg("examples/if/if.txt")
+    print("If-Else")
+    nodes, edges = cfg("examples/ifElse/ifElse.txt")
 
     print("\nVertices (Nodes):")
     for n in nodes:

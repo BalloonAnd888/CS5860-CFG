@@ -1,9 +1,22 @@
 import unittest
 from cfg import *
 
-class TestNode(unittest.TestCase):
+class TestCFGStatement(unittest.TestCase):
     def setUp(self):
-        self.nodes, self.edges = ["(1) int a = 5;", "(2) double b = 10.5;", "(3) a = a * 2;", "(4) b = b - 3.5;", "(5) a += 1;"], [(1, 2), (2, 3), (3, 4), (4, 5)]
+        self.nodes= [
+            "(1) int a = 5;", 
+            "(2) double b = 10.5;", 
+            "(3) a = a * 2;", 
+            "(4) b = b - 3.5;", 
+            "(5) a += 1;"
+        ]
+        
+        self.edges = [
+            (1, 2), 
+            (2, 3), 
+            (3, 4), 
+            (4, 5)
+        ]
 
     def testCFGStatement(self):
         self.testNodes, self.testEdges = cfg("examples/statement/statement.txt")
