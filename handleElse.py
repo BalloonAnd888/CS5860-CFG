@@ -10,11 +10,11 @@ def handleElse(lines, i, nodes, nodeID, edges, ifNodeID, nodesToConnect):
             node = Node(nodeID, lines[i])
             nodes.append(node)
             if firstStatementInElse:
-                edges.append((ifNodeID, nodeID))
+                edges.append((ifNodeID, node.nodeID))
                 nodesToConnect.append(node)
                 firstStatementInElse = False
             else:
-                edges.append((nodesToConnect[-1].nodeID, nodeID))
+                edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                 nodesToConnect.pop()
                 nodesToConnect.append(node)
             print(node.nodeID, node.statement)

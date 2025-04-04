@@ -1,62 +1,32 @@
 from node import Node 
 from parse import parseLines 
 from handleIf import handleIf
-
-# def handleWhile(lines, i , nodes, nodeID, edges):
-#     whileNode = Node(nodeID, lines[i])
-#     nodes.append(Node(nodeID, lines[i]))
-#     nodeID += 1
-#     i += 1
-#     print(i, nodeID)
-
-#     while lines[i] != "}" and i < len(lines):
-#         if lines[i] != "{":
-#             node = Node(nodeID, lines[i])
-#             nodes.append(node)
-#             edges.append((nodes[-2].nodeID, nodeID))
-#             print(node.nodeID, node.statement)
-#             print(edges)
-#             nodeID += 1
-#         i += 1
-#     edges.append((nodes[-1].nodeID, whileNode.nodeID))
-
-#     if i + 1 < len(lines):
-#         node = Node(nodeID, lines[i+1])
-#         edges.append((whileNode.nodeID, node.nodeID))
-
-#     print(edges)
-#     print(i, nodeID)
-
-#     return i, nodeID
+from handleWhile import handleWhile
 
 def cfg(filename):
     lines = parseLines(filename)
 
     nodes = []
-    nodeID = 1
-
-    edges = []
-    i = 0
     nodesToConnect = []
+    edges = []
+    nodeID = 1
+    i = 0
 
     while i < len(lines):
         if lines[i].startswith("if"):
             print(lines[i], "If")
             i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleIf", i, nodeID)
-        # elif lines[i].startswith("while"):
-        #     print(lines[i], "While")
-        #     if nodes:
-        #         edges.append((nodes[-1].nodeID, nodeID))
-        #         print(edges)
-        #     i, nodeID = handleWhile(lines, i, nodes, nodeID, edges)
-        #     print("After handleWhile", i, nodeID)
+        elif lines[i].startswith("while"):
+            print(lines[i], "While")
+            i, nodeID, nodesToConnect = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+            print("After handleWhile", i, nodeID)
         elif lines[i] not in {"{", "}"}:
             print(lines[i], "Statement")
             node = Node(nodeID, lines[i])
             print(node.nodeID, node.statement)
             nodes.append(node)
-            if len(nodesToConnect) == 0:
+            if len(nodesToConnect) == 0 and i + 1 != len(lines):
                 nodesToConnect.append(node)
             if len(nodes) > 1:
                 while nodesToConnect:
@@ -75,10 +45,10 @@ if __name__ == "__main__":
     # nodes, edges = cfg("examples/statement/statement.txt")
     # print("if")
     # nodes, edges = cfg("examples/if/if.txt")
-    print("If-Else")
-    nodes, edges = cfg("examples/ifElse/ifElse.txt")
-    # print("While")
-    # nodes, edges = cfg("examples/while/while.txt")
+    # print("If-Else")
+    # nodes, edges = cfg("examples/ifElse/ifElse.txt")
+    print("While")
+    nodes, edges = cfg("examples/while/while.txt")
 
     print("\nVertices (Nodes):")
     for n in nodes:

@@ -20,7 +20,7 @@ def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
         if lines[i] != "{":
             node = Node(nodeID, lines[i])
             nodes.append(node)
-            edges.append((nodesToConnect[-1].nodeID, nodeID))
+            edges.append((nodesToConnect[-1].nodeID, node.nodeID))
             nodesToConnect.pop()
             nodesToConnect.append(node)
             print(node.nodeID, node.statement)
