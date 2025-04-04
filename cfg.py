@@ -1,73 +1,6 @@
-class Node:
-    def __init__(self, nodeID, statement):
-        self.nodeID = nodeID
-        self.statement = statement
-        self.edges = []
-
-def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
-    ifNode = Node(nodeID, lines[i])
-    if nodes:
-        edges.append((nodesToConnect[-1].nodeID, ifNode.nodeID))
-        nodes.append(ifNode)
-        nodesToConnect.pop()
-        nodesToConnect.append(ifNode)
-        print(edges)
-    else:
-        nodes.append(ifNode)
-        nodesToConnect.append(ifNode)
-    nodeID += 1
-    i += 1
-    print(i, nodeID)
-
-    while lines[i] != "}" and i < len(lines):
-        if lines[i] != "{":
-            node = Node(nodeID, lines[i])
-            nodes.append(node)
-            edges.append((nodesToConnect[-1].nodeID, nodeID))
-            nodesToConnect.pop()
-            nodesToConnect.append(node)
-            print(node.nodeID, node.statement)
-            print(edges)
-            nodeID += 1
-        i += 1
-
-    if i + 1 < len(lines) and lines[i + 1].startswith("else"):
-        i, nodeID, nodesToConnect = handleElse(lines, i + 1, nodes, nodeID, edges, ifNode.nodeID, nodesToConnect)
-        print("Out of Else")
-    elif i + 1 < len(lines):
-        edges.append((ifNode.nodeID, nodeID))
-
-    print(edges)
-    print(i, nodeID)
-
-    return i, nodeID, nodesToConnect
-
-def handleElse(lines, i, nodes, nodeID, edges, ifNodeID, nodesToConnect):
-    print("In Else")
-    i += 1
-    print(i)
-    firstStatementInElse = True
-    while lines[i] != "}" and i < len(lines):
-        if lines[i] != "{":
-            node = Node(nodeID, lines[i])
-            nodes.append(node)
-            if firstStatementInElse:
-                edges.append((ifNodeID, nodeID))
-                nodesToConnect.append(node)
-                firstStatementInElse = False
-            else:
-                edges.append((nodesToConnect[-1].nodeID, nodeID))
-                nodesToConnect.pop()
-                nodesToConnect.append(node)
-            print(node.nodeID, node.statement)
-            print(edges)
-            nodeID += 1
-        i += 1
-
-    print(edges)
-    print(i, nodeID)
-
-    return i, nodeID, nodesToConnect
+from node import Node 
+from parse import parseLines 
+from handleIf import handleIf
 
 # def handleWhile(lines, i , nodes, nodeID, edges):
 #     whileNode = Node(nodeID, lines[i])
@@ -95,26 +28,6 @@ def handleElse(lines, i, nodes, nodeID, edges, ifNodeID, nodesToConnect):
 #     print(i, nodeID)
 
 #     return i, nodeID
-
-def parseLines(filename):
-    lines = []
-    inMultilineComment = False
-    with open(filename, 'r') as file:
-        for line in file:
-            line = line.strip()
-
-            if "/*" in line:
-                inMultilineComment = True
-            if "*/" in line:
-                inMultilineComment = False
-                continue  
-
-            if line and not line.startswith("//") and not inMultilineComment:
-                lines.append(line)
-
-    print(lines)
-
-    return lines
 
 def cfg(filename):
     lines = parseLines(filename)
