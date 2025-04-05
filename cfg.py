@@ -2,6 +2,7 @@ from node import Node
 from parse import parseLines 
 from handleIf import handleIf
 from handleWhile import handleWhile
+from handleFor import handleFor
 
 def cfg(filename):
     lines = parseLines(filename)
@@ -21,6 +22,10 @@ def cfg(filename):
             print(lines[i], "While")
             i, nodeID, nodesToConnect = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleWhile", i, nodeID)
+        elif lines[i].startswith("for"):
+            print(lines[i], "For")
+            i, nodeID, nodesToConnect = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
+            print("After handleFor", i, nodeID)
         elif lines[i] not in {"{", "}"}:
             print(lines[i], "Statement")
             node = Node(nodeID, lines[i])
@@ -47,8 +52,10 @@ if __name__ == "__main__":
     # nodes, edges = cfg("examples/if/if.txt")
     # print("If-Else")
     # nodes, edges = cfg("examples/ifElse/ifElse.txt")
-    print("While")
-    nodes, edges = cfg("examples/while/while.txt")
+    # print("While")
+    # nodes, edges = cfg("examples/while/while.txt")
+    print("For")
+    nodes, edges = cfg("examples/for/for.txt")
 
     print("\nVertices (Nodes):")
     for n in nodes:
