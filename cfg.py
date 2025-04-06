@@ -3,6 +3,7 @@ from parse import parseLines
 from handleIf import handleIf
 from handleWhile import handleWhile
 from handleFor import handleFor
+from handleDoWhile import handleDoWhile
 
 def cfg(filename):
     lines = parseLines(filename)
@@ -14,18 +15,24 @@ def cfg(filename):
     i = 0
 
     while i < len(lines):
-        if lines[i].startswith("if"):
+        firstWord = lines[i].split()[0]
+
+        if firstWord == "if":
             print(lines[i], "If")
             i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleIf", i, nodeID)
-        elif lines[i].startswith("while"):
+        elif firstWord == "while":
             print(lines[i], "While")
             i, nodeID, nodesToConnect = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleWhile", i, nodeID)
-        elif lines[i].startswith("for"):
+        elif firstWord == "for":
             print(lines[i], "For")
             i, nodeID, nodesToConnect = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleFor", i, nodeID)
+        elif firstWord == "do":
+            print(lines[i], "Do")
+            i, nodeID, nodesToConnect = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+            print("After handleDoWhile", i, nodeID)
         elif lines[i] not in {"{", "}"}:
             print(lines[i], "Statement")
             node = Node(nodeID, lines[i])
@@ -54,8 +61,11 @@ if __name__ == "__main__":
     # nodes, edges = cfg("examples/ifElse/ifElse.txt")
     # print("While")
     # nodes, edges = cfg("examples/while/while.txt")
-    print("For")
-    nodes, edges = cfg("examples/for/for.txt")
+    # print("For")
+    # nodes, edges = cfg("examples/for/for.txt")
+    print("Do While")
+    nodes, edges = cfg("examples/doWhile/doWhile.txt")
+
 
     print("\nVertices (Nodes):")
     for n in nodes:
