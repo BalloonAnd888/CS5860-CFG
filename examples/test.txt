@@ -1,0 +1,63 @@
+// 1. Assignment & Arithmetic
+int balance = 1000;
+int deposit = 0;
+int withdrawal = 0;
+int reward = 0;
+int transactions = 0;
+
+// 7. Read user input using cin
+cout << "Enter deposit amount: ";
+cin >> deposit;
+
+cout << "Enter withdrawal amount: ";
+cin >> withdrawal;
+
+// 2. Simple logical expression
+if (deposit > 0) 
+{
+    balance = balance + deposit;
+    transactions++;
+}
+
+// 2. Composite logical expression and 3. If-Else
+if (withdrawal > 0 && withdrawal <= balance) 
+{
+    balance = balance - withdrawal;
+    transactions++;
+} 
+else 
+{
+    cout << "Withdrawal denied: insufficient funds." << endl;
+}
+
+// 4. While loop to apply reward per transaction
+while (transactions > 0) 
+{
+    reward += 10;
+    transactions--;
+}
+
+/* 5. For loop to 
+simulate monthly interest
+*/
+
+for (int i = 0; i < 3; i++) 
+{
+    balance += (balance * 0.01);
+}
+
+/* 6. Do-while loop 
+simulating login attempts */
+
+int attempts = 0;
+bool loggedIn = false;
+do 
+{
+    cout << "Attempting login..." << endl;
+    attempts++;
+} 
+while (!loggedIn && attempts < 3);
+
+// 7. Write final output using cout
+cout << "Final balance: " << balance << endl;
+cout << "Total reward points: " << reward << endl;

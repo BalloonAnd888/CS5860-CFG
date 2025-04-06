@@ -63,9 +63,10 @@ if __name__ == "__main__":
     # nodes, edges = cfg("examples/while/while.txt")
     # print("For")
     # nodes, edges = cfg("examples/for/for.txt")
-    print("Do While")
-    nodes, edges = cfg("examples/doWhile/doWhile.txt")
-
+    # print("Do While")
+    # nodes, edges = cfg("examples/doWhile/doWhile.txt")
+    print("Test")
+    nodes, edges = cfg("examples/test.txt")
 
     print("\nVertices (Nodes):")
     for n in nodes:
