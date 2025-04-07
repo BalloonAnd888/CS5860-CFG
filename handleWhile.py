@@ -1,6 +1,10 @@
 from node import Node 
 
 def handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect):
+    from handleIf import handleIf
+    from handleFor import handleFor
+    from handleDoWhile import handleDoWhile
+    
     whileNode = Node(nodeID, lines[i])
     if nodes:
         edges.append((nodesToConnect[-1].nodeID, whileNode.nodeID))
@@ -17,24 +21,34 @@ def handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect):
 
     while lines[i] != "}" and i < len(lines):
         if lines[i] != "{":
-            node = Node(nodeID, lines[i])
-            nodes.append(node)
-            edges.append((nodesToConnect[-1].nodeID, node.nodeID))
-            nodesToConnect.pop()
-            nodesToConnect.append(node)
-            print(node.nodeID, node.statement)
-            print(edges)
-            nodeID += 1
+            firstWord = lines[i].split()[0]
+            if firstWord == "if":
+                i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+            elif firstWord == "while":
+                print(lines[i], "While")
+                i, nodeID, nodesToConnect, lastNode = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                nodesToConnect.append(lastNode)
+                print("LastNode ID", lastNode.nodeID)
+            elif firstWord == "for":
+                i, nodeID, nodesToConnect = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
+            elif firstWord == "do":
+                i, nodeID, nodesToConnect = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+            else:
+                node = Node(nodeID, lines[i])
+                nodes.append(node)
+                edges.append((nodesToConnect[-1].nodeID, node.nodeID))
+                nodesToConnect.pop()
+                nodesToConnect.append(node)
+                lastNode = node
+                print(node.nodeID, node.statement)
+                print(edges)
+                nodeID += 1
         i += 1
-
-    edges.append((nodesToConnect[-1].nodeID, whileNode.nodeID))
-    nodesToConnect.pop()
-
-    if i + 1 < len(lines):
-        edges.append((whileNode.nodeID, nodeID))
-
+    if nodesToConnect:
+        edges.append((nodesToConnect[-1].nodeID, whileNode.nodeID))
+        nodesToConnect.pop()
 
     print(edges)
     print(i, nodeID)
 
-    return i, nodeID, nodesToConnect
+    return i, nodeID, nodesToConnect, whileNode

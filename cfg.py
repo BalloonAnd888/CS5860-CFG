@@ -23,7 +23,9 @@ def cfg(filename):
             print("After handleIf", i, nodeID)
         elif firstWord == "while":
             print(lines[i], "While")
-            i, nodeID, nodesToConnect = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+            i, nodeID, nodesToConnect, lastNode = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+            print("Last Node", lastNode.nodeID)
+            nodesToConnect.append(lastNode)
             print("After handleWhile", i, nodeID)
         elif firstWord == "for":
             print(lines[i], "For")
@@ -46,6 +48,7 @@ def cfg(filename):
                     nodesToConnect.pop()
                 nodesToConnect.append(node)
                 print(edges)
+
             nodeID += 1
 
         i += 1
@@ -59,14 +62,14 @@ if __name__ == "__main__":
     # nodes, edges = cfg("examples/if/if.txt")
     # print("If-Else")
     # nodes, edges = cfg("examples/ifElse/ifElse.txt")
-    # print("While")
-    # nodes, edges = cfg("examples/while/while.txt")
+    print("While")
+    nodes, edges = cfg("examples/while/whileNested.txt")
     # print("For")
     # nodes, edges = cfg("examples/for/for.txt")
     # print("Do While")
     # nodes, edges = cfg("examples/doWhile/doWhile.txt")
-    print("Test")
-    nodes, edges = cfg("examples/test.txt")
+    # print("Test")
+    # nodes, edges = cfg("examples/test.txt")
 
     print("\nVertices (Nodes):")
     for n in nodes:

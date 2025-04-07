@@ -1,10 +1,11 @@
-from handleDoWhile import handleDoWhile
-from handleFor import handleFor
-from handleWhile import handleWhile
 from node import Node 
-from handleElse import handleElse
 
 def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
+    from handleWhile import handleWhile
+    from handleFor import handleFor
+    from handleDoWhile import handleDoWhile
+    from handleElse import handleElse
+    
     ifNode = Node(nodeID, lines[i])
     if nodes:
         edges.append((nodesToConnect[-1].nodeID, ifNode.nodeID))
@@ -23,13 +24,21 @@ def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
         if lines[i] != "{":
             firstWord = lines[i].split()[0]
             if firstWord == "if":
+                print(lines[i], "If")
                 i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print("After handleIf", i, nodeID)
             elif firstWord == "while":
+                print(lines[i], "While")
                 i, nodeID, nodesToConnect = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print("After handleWhile", i, nodeID)
             elif firstWord == "for":
+                print(lines[i], "For")
                 i, nodeID, nodesToConnect = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print("After handleFor", i, nodeID)
             elif firstWord == "do":
+                print(lines[i], "Do")
                 i, nodeID, nodesToConnect = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print("After handleDoWhile", i, nodeID)
             else:
                 node = Node(nodeID, lines[i])
                 nodes.append(node)
