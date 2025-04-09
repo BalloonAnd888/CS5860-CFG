@@ -1,6 +1,6 @@
 from node import Node 
 
-def handleFor(lines, i, nodes, nodeID, edges, nodesToConnect):
+def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesToConnect: list) -> tuple[int, int, list, Node]:
     from handleIf import handleIf
     from handleWhile import handleWhile
     from handleDoWhile import handleDoWhile

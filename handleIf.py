@@ -1,6 +1,6 @@
 from node import Node 
 
-def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
+def handleIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesToConnect: list) -> tuple[int, int, list]:
     from handleWhile import handleWhile
     from handleFor import handleFor
     from handleDoWhile import handleDoWhile
@@ -12,10 +12,12 @@ def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
         nodes.append(ifNode)
         nodesToConnect.pop()
         nodesToConnect.append(ifNode)
+        print([f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
         print(edges)
     else:
         nodes.append(ifNode)
         nodesToConnect.append(ifNode)
+        print([f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
     nodeID += 1
     i += 1
     print(i, nodeID)
@@ -29,11 +31,15 @@ def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
                 print("After handleIf", i, nodeID)
             elif firstWord == "while":
                 print(lines[i], "While")
-                i, nodeID, nodesToConnect = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                nodesToConnect.append(lastNode)
+                print("Last Node", lastNode.nodeID)
                 print("After handleWhile", i, nodeID)
             elif firstWord == "for":
                 print(lines[i], "For")
-                i, nodeID, nodesToConnect = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
+                nodesToConnect.append(lastNode)
+                print("Last Node", lastNode.nodeID)
                 print("After handleFor", i, nodeID)
             elif firstWord == "do":
                 print(lines[i], "Do")
@@ -45,6 +51,7 @@ def handleIf(lines, i, nodes, nodeID, edges, nodesToConnect):
                 edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                 nodesToConnect.pop()
                 nodesToConnect.append(node)
+                print([f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print(node.nodeID, node.statement)
                 print(edges)
                 nodeID += 1

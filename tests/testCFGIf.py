@@ -54,6 +54,44 @@ class TestCFGIfStatement(unittest.TestCase):
             (7, 8)
         ]
 
+        self.ifWithAllNestedNodes = [
+            "(1) int x = 0;",
+            "(2) int y = 0;",
+            "(3) if (x >= 0)",
+            "(4) x = x + 1;",
+            "(5) while (x < 5)",
+            "(6) x = x + 2;",
+            "(7) for (int i = 0; i < 2; i++)",
+            "(8) x = x * 2;",
+            "(9) x = x - 1;",
+            "(10) while (x > 0);",
+            "(11) if (x == 0)",
+            "(12) x = x + 100;",
+            "(13) y++;",
+            "(14) x = x - 3;"
+        ]
+
+        self.ifWithAllNestedEdges = [
+            (1, 2),
+            (2, 3),
+            (3, 4),
+            (3, 14),
+            (4, 5),
+            (5, 6),
+            (6, 5),
+            (5, 7),
+            (7, 8),
+            (8, 7),
+            (7, 9),
+            (9, 10),
+            (10, 9),
+            (10, 11),
+            (11, 12),
+            (11, 13),
+            (12, 13),
+            (13, 14)
+        ]
+
     def testSimpleIf(self):
         self.testNodes, self.testEdges = cfg("examples/if/if.txt")
         self.assertEqual(sorted(self.testEdges), sorted(self.simpleEdges))
@@ -65,6 +103,12 @@ class TestCFGIfStatement(unittest.TestCase):
         self.assertEqual(sorted(self.testEdges), sorted(self.nestedEdges))
         for i, node in enumerate(self.testNodes):
             self.assertEqual(f"({node.nodeID}) {node.statement}", self.nestedNodes[i])
+    
+    def testIfWithAllNested(self):
+        testNodes, testEdges = cfg("examples/if/ifWithOther.txt")
+        self.assertEqual(sorted(testEdges), sorted(self.ifWithAllNestedEdges))
+        for i, node in enumerate(testNodes):
+            self.assertEqual(f"({node.nodeID}) {node.statement}", self.ifWithAllNestedNodes[i])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

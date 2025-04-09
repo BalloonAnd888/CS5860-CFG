@@ -1,6 +1,6 @@
 from node import Node
 
-def handleElse(lines, i, nodes, nodeID, edges, ifNodeID, nodesToConnect):
+def handleElse(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNodeID: int, nodesToConnect: list) -> tuple[int, int, list]:
     print("In Else")
     i += 1
     print(i)

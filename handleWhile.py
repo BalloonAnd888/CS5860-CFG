@@ -1,6 +1,6 @@
 from node import Node 
 
-def handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect):
+def handleWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesToConnect: list) -> tuple[int, int, list, Node]:
     from handleIf import handleIf
     from handleFor import handleFor
     from handleDoWhile import handleDoWhile
@@ -23,22 +23,32 @@ def handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect):
         if lines[i] != "{":
             firstWord = lines[i].split()[0]
             if firstWord == "if":
+                print(lines[i], "If")
                 i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print("After handleIf", i, nodeID)
             elif firstWord == "while":
                 print(lines[i], "While")
                 i, nodeID, nodesToConnect, lastNode = handleWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
                 nodesToConnect.append(lastNode)
-                print("LastNode ID", lastNode.nodeID)
+                print("Last Node", lastNode.nodeID)
+                print("After handleWhile", i, nodeID)
             elif firstWord == "for":
-                i, nodeID, nodesToConnect = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print(lines[i], "For")
+                i, nodeID, nodesToConnect, lastNode = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
+                nodesToConnect.append(lastNode)
+                print("Last Node", lastNode.nodeID)
+                print("After handleFor", i, nodeID)
             elif firstWord == "do":
+                print(lines[i], "Do")
                 i, nodeID, nodesToConnect = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print("After handleDoWhile", i, nodeID)
             else:
                 node = Node(nodeID, lines[i])
                 nodes.append(node)
                 edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                 nodesToConnect.pop()
                 nodesToConnect.append(node)
+                print([f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 lastNode = node
                 print(node.nodeID, node.statement)
                 print(edges)

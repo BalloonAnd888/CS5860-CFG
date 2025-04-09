@@ -1,4 +1,4 @@
-def parseLines(filename):
+def parseLines(filename: str) -> list:
     lines = []
     inMultilineComment = False
     with open(filename, 'r') as file:

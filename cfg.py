@@ -5,7 +5,7 @@ from handleWhile import handleWhile
 from handleFor import handleFor
 from handleDoWhile import handleDoWhile
 
-def cfg(filename):
+def cfg(filename: str) -> tuple[list, list]:
     lines = parseLines(filename)
 
     nodes = []
@@ -44,11 +44,14 @@ def cfg(filename):
             nodes.append(node)
             if len(nodesToConnect) == 0 and i + 1 != len(lines):
                 nodesToConnect.append(node)
+                print([f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
             if len(nodes) > 1:
                 while nodesToConnect:
                     edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                     nodesToConnect.pop()
+                    print([f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 nodesToConnect.append(node)
+                print([f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print(edges)
 
             nodeID += 1
@@ -61,15 +64,17 @@ if __name__ == "__main__":
     # print("Statement")
     # nodes, edges = cfg("examples/statement/statement.txt")
     # print("if")
-    # nodes, edges = cfg("examples/if/if.txt")
+    # nodes, edges = cfg("examples/if/ifWithOther.txt")
     # print("If-Else")
     # nodes, edges = cfg("examples/ifElse/ifElse.txt")
     # print("While")
     # nodes, edges = cfg("examples/while/whileNested.txt")
+    print("While")
+    nodes, edges = cfg("examples/while/whileWithOther.txt")
     # print("For")
     # nodes, edges = cfg("examples/for/forNested.txt")
-    print("Do While")
-    nodes, edges = cfg("examples/doWhile/doWhileNested.txt")
+    # print("Do While")
+    # nodes, edges = cfg("examples/doWhile/doWhileNested.txt")
     # print("Test")
     # nodes, edges = cfg("examples/test.txt")
 
