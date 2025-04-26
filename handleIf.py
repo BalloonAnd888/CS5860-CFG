@@ -65,8 +65,10 @@ def handleIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesTo
     if i + 1 < len(lines) and lines[i + 1].startswith("else"):
         i, nodeID, nodesToConnect = handleElse(lines, i + 1, nodes, nodeID, edges, ifNode.nodeID, nodesToConnect)
         print("Out of Else")
-    elif i + 1 < len(lines):
+    elif i + 1 < len(lines) and lines[i + 1] != "}":
         edges.append((ifNode.nodeID, nodeID))
+    else:
+        nodesToConnect.append(ifNode)
 
     print("Edges", edges)
     print("Line:", i, "NodeID:", nodeID)

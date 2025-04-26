@@ -76,7 +76,8 @@ if __name__ == "__main__":
     # print("Do While")
     # nodes, edges = cfg("examples/doWhile/doWhileWithOther.txt")
     # print("Test")
-    nodes, edges = cfg("examples/test.txt")
+    # nodes, edges = cfg("examples/test.txt")
+    nodes, edges = cfg("examples/t.txt")
     # print("Bracket")
     # nodes, edges = cfg("examples/test.txt")
 

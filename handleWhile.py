@@ -62,7 +62,7 @@ def handleWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, node
                 nodeID += 1
         i += 1
 
-    if nodesToConnect:
+    while nodesToConnect:
         edges.append((nodesToConnect[-1].nodeID, whileNode.nodeID))
         nodesToConnect.pop()
     
