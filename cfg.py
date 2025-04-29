@@ -45,13 +45,13 @@ def cfg(filename: str) -> tuple[list, list]:
             print("Nodes:", [f"({n.nodeID})" for n in nodes])
             if len(nodesToConnect) == 0 and i + 1 != len(lines):
                 nodesToConnect.append(node)
-                print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+                print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
             if len(nodes) > 1:
                 while nodesToConnect:
                     edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                     nodesToConnect.pop()
                 nodesToConnect.append(node)
-                print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+                print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print(edges)
 
             nodeID += 1
