@@ -13,14 +13,14 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
         print("Nodes:", [f"({n.nodeID})" for n in nodes])
         nodesToConnect.pop()
         nodesToConnect.append(forNode)
-        print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
         print("Edges:", edges)
     else:
         nodes.append(forNode)
         print(f"\n{forNode.nodeID}", forNode.statement, "For")
         print("Nodes:", [f"({n.nodeID})" for n in nodes])
         nodesToConnect.append(forNode)
-        print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
     nodeID += 1
     i += 1
     print("Line:", i, "NodeID:", nodeID)
@@ -57,7 +57,7 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
                 nodesToConnect.pop()
                 nodesToConnect.append(node)
                 lastNode = node
-                print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+                print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print("Edges:", edges)
                 nodeID += 1
         i += 1

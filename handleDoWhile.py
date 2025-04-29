@@ -16,14 +16,14 @@ def handleDoWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, no
         print("Nodes:", [f"({n.nodeID})" for n in nodes])
         nodesToConnect.pop()
         nodesToConnect.append(doFirstNode)
-        print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
         print("Edges:", edges)
     else:
         nodes.append(doFirstNode)
         print(f"\n{doFirstNode.nodeID}", doFirstNode.statement, "Do")
         print("Nodes:", [f"({n.nodeID})" for n in nodes])
         nodesToConnect.append(doFirstNode)
-        print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
     nodeID += 1
     i += 1
     print("Line:", i, "NodeID:", nodeID)
@@ -59,7 +59,7 @@ def handleDoWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, no
                 edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                 nodesToConnect.pop()
                 nodesToConnect.append(node)
-                print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+                print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print("Edges:", edges)
                 nodeID += 1
         i += 1
@@ -71,6 +71,7 @@ def handleDoWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, no
     edges.append((nodesToConnect[-1].nodeID, node.nodeID))
     nodesToConnect.pop()
     nodesToConnect.append(node)
+    print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
 
     edges.append((nodesToConnect[-1].nodeID, doFirstNode.nodeID))
     nodeID += 1

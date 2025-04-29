@@ -61,28 +61,11 @@ def cfg(filename: str) -> tuple[list, list]:
     return nodes, edges
 
 if __name__ == "__main__":
-    # print("Statement")
-    # nodes, edges = cfg("examples/statement/statement.txt")
-    # print("if")
-    # nodes, edges = cfg("examples/if/ifWithOther.txt")
-    # print("If-Else")
-    # nodes, edges = cfg("examples/ifElse/ifElse.txt")
-    # print("While")
-    # nodes, edges = cfg("examples/while/whileNested.txt")
-    # print("While")
     # nodes, edges = cfg("examples/while/whileWithOther.txt")
-    # print("For")
-    # nodes, edges = cfg("examples/for/forWithOther.txt")
-    # print("Do While")
-    # nodes, edges = cfg("examples/doWhile/doWhileWithOther.txt")
-    # print("Test")
-    # nodes, edges = cfg("examples/test.txt")
-    nodes, edges = cfg("examples/t.txt")
-    # print("Bracket")
-    # nodes, edges = cfg("examples/test.txt")
+    # nodes, edges = cfg("examples/ifElse/ifElse.txt")
+    nodes, edges = cfg("examples/elseIf/elseIf.txt")
 
-    # parseLines("examples/test.txt")
-    # parseLines("examples/while/whileNested.txt")
+
 
     print("\nVertices (Nodes):")
     for n in nodes:

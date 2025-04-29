@@ -13,14 +13,14 @@ def handleWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, node
         print("Nodes:", [f"({n.nodeID})" for n in nodes])
         nodesToConnect.pop()
         nodesToConnect.append(whileNode)
-        print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
         print("Edges:", edges)
     else:
         nodes.append(whileNode)
         print(f"\n{whileNode.nodeID}", whileNode.statement, "While")
         print("Nodes:", [f"({n.nodeID})" for n in nodes])
         nodesToConnect.append(whileNode)
-        print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
     nodeID += 1
     i += 1
     print("Line:", i, "NodeID:", nodeID)
@@ -56,7 +56,7 @@ def handleWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, node
                 edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                 nodesToConnect.pop()
                 nodesToConnect.append(node)
-                print([f"Nodes to connect: ({n.nodeID}) {n.statement}" for n in nodesToConnect])
+                print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 lastNode = node
                 print("Edges:", edges)
                 nodeID += 1

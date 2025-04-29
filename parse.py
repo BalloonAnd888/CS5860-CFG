@@ -1,5 +1,3 @@
-from separateBracket import separateBracket
-
 def parseLines(filename: str) -> list:
     lines = []
     inMultilineComment = False
@@ -15,9 +13,5 @@ def parseLines(filename: str) -> list:
 
             if line and not line.startswith("//") and not inMultilineComment:
                 lines.append(line)
-
-    # print("Before separating brackets:", lines)
-
-    lines = separateBracket(lines)
 
     return lines
