@@ -65,6 +65,25 @@ class TestCFGIfElseStatement(unittest.TestCase):
             (4, 6)
         ]
 
+        self.ifElseDoWhileNodes = [
+            "(1) int x = 3;",
+            "(2) if (x > 10)",
+            "(3) x = x - 10;",
+            "(4) x = x + 1;",
+            "(5) while (x < 5);",
+            "(6) x = x * 2;"
+        ]
+
+        self.ifElseDoWhileEdges = [
+            (1, 2),
+            (2, 3),
+            (2, 4),
+            (3, 6),
+            (4, 5),
+            (5, 4),
+            (5, 6)
+        ]
+
     def testCFGIfElseStatement(self):
         self.testNodes, self.testEdges = cfg("examples/ifElse/ifElse.txt")
         self.assertEqual(self.edges, self.edges)
@@ -83,6 +102,12 @@ class TestCFGIfElseStatement(unittest.TestCase):
         self.assertEqual(sorted(self.testEdges), sorted(self.ifElseWhileEdges))
         for i, node in enumerate(self.testNodes):
             self.assertEqual(f"({node.nodeID}) {node.statement}", self.ifElseWhileNodes[i])
+
+    def testIfElseWithDoWhile(self):
+        self.testNodes, self.testEdges = cfg("examples/ifElse/ifElseDoWhile.txt")
+        self.assertEqual(sorted(self.testEdges), sorted(self.ifElseDoWhileEdges))
+        for i, node in enumerate(self.testNodes):
+            self.assertEqual(f"({node.nodeID}) {node.statement}", self.ifElseDoWhileNodes[i])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
