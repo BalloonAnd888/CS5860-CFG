@@ -62,8 +62,9 @@ def cfg(filename: str) -> tuple[list, list]:
 
 if __name__ == "__main__":
     # nodes, edges = cfg("examples/while/whileWithOther.txt")
-    # nodes, edges = cfg("examples/ifElse/ifElse.txt")
-    nodes, edges = cfg("examples/elseIf/elseIf.txt")
+    # nodes, edges = cfg("examples/elseIf/elseIf.txt")
+    # nodes, edges = cfg("examples/ifElse/ifElseWhile.txt")
+    nodes, edges = cfg("examples/programs/program1.txt")
 
 
 

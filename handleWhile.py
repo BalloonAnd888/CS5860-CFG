@@ -57,15 +57,19 @@ def handleWhile(lines: list, i: int, nodes: list, nodeID: int, edges: list, node
                 nodesToConnect.pop()
                 nodesToConnect.append(node)
                 print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
-                lastNode = node
                 print("Edges:", edges)
                 nodeID += 1
         i += 1
 
-    while nodesToConnect:
+    if nodesToConnect:
         edges.append((nodesToConnect[-1].nodeID, whileNode.nodeID))
         nodesToConnect.pop()
-    
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        print("Edges:", edges)
+
+    if i == len(lines) - 1 and nodesToConnect:
+        edges.append((nodesToConnect[-1].nodeID, whileNode.nodeID))
+
     print("Edges", edges)
     print("Line:", i, "NodeID:", nodeID)
 
