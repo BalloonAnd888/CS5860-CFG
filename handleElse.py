@@ -1,6 +1,6 @@
 from node import Node
 
-def handleElse(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNodeID: int, nodesToConnect: list) -> tuple[int, int, list]:   
+def handleElse(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNode: Node, nodesToConnect: list) -> tuple[int, int, list]:   
     from handleIf import handleIf
     from handleWhile import handleWhile
     from handleFor import handleFor
@@ -15,7 +15,7 @@ def handleElse(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNod
             firstWord = lines[i].split()[0]
             if firstWord == "if":
                 print(f"\nStart handleIf:", lines[i])
-                i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
                 print("After handleIf","Line:", i, "NodeID:", nodeID)
             elif firstWord == "while":
                 print(f"\nStart handleWhile:", lines[i])
@@ -39,7 +39,7 @@ def handleElse(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNod
                 nodes.append(node)
                 if firstStatementInElse:
                     print(firstStatementInElse)
-                    edges.append((ifNodeID, node.nodeID))
+                    edges.append((ifNode.nodeID, node.nodeID))
                     print("Edges:", edges)
                     nodesToConnect.append(node)
                     print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
@@ -58,5 +58,8 @@ def handleElse(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNod
 
     print(edges)
     print(i, nodeID)
+
+    if ifNode in nodesToConnect:
+        nodesToConnect.remove(ifNode)
 
     return i, nodeID, nodesToConnect

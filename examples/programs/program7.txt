@@ -1,0 +1,66 @@
+int a = 0;
+int b = 5;
+int c = 2;
+
+while (a < b) 
+{
+    a = a + 1;
+
+    if (a % 2 == 0) 
+    {
+        for (int i = 0; i < 3; i++) 
+        {
+            if (i == 1) 
+            {
+                c = c + i;
+            }
+            else if (i == 2) 
+            {
+                while (c < 10) 
+                {
+                    c = c + 1;
+                }
+            }
+            else 
+            {
+                c = c + 2;
+            }
+        }
+    }
+    else 
+    {
+        do 
+        {
+            b = b - 1;
+        } 
+        while (b > a);
+
+        if (b == 2) 
+        {
+            for (int j = 0; j < 2; j++) 
+            {
+                a = a + j;
+            }
+        }
+        else 
+        {
+            c = c * 2;
+        }
+    }
+
+    c = c + a;
+}
+
+if (c > 20) 
+{
+    c = c - 5;
+}
+else 
+{
+    while (c < 25) 
+    {
+        c = c + 1;
+    }
+}
+
+a = a + b + c;

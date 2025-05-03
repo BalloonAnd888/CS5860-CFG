@@ -1,0 +1,35 @@
+int x = 0;
+int y = 10;
+
+if (x < y) 
+{
+    while (x < 5) 
+    {
+        if (x % 2 == 0) 
+        {
+            y = y - x;
+        }
+        else 
+        {
+            y = y + x;
+        }
+        x++;
+    }
+}
+else if (x == y) 
+{
+    for (int j = 0; j < 4; j++) 
+    {
+        x = x + j;
+    }
+}
+else 
+{
+    do 
+    {
+        x = x - 1;
+    } 
+    while (x > -5);
+}
+
+x = x + y;

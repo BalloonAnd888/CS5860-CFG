@@ -1,0 +1,42 @@
+int a = 0;
+int b = 2;
+int c = 4;
+
+for (int i = 0; i < 2; i++) 
+{
+    if (b > 0) 
+    {
+        while (c < 10) 
+        {
+            c = c + 1;
+            if (c % 2 == 0) 
+            {
+                b = b + 1;
+            }
+        }
+    }
+    else 
+    {
+        for (int j = 0; j < 3; j++) 
+        {
+            a = a + j;
+        }
+    }
+
+    do 
+    {
+        a = a + 1;
+    } 
+    while (a < 5);
+}
+
+if ((a + b) % 3 == 0) 
+{
+    c = c - 2;
+}
+else 
+{
+    c = c + 2;
+}
+
+a = a * b * c;

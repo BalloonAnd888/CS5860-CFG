@@ -20,7 +20,7 @@ def cfg(filename: str) -> tuple[list, list]:
 
         if firstWord == "if":
             print(f"\nStart handleIf:", lines[i])
-            i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+            i, nodeID, nodesToConnect, lastNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleIf", "Line:", i, "NodeID:", nodeID)
         elif firstWord == "while":
             print(f"\nStart handleWhile:", lines[i])
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     # nodes, edges = cfg("examples/while/whileWithOther.txt")
     # nodes, edges = cfg("examples/elseIf/elseIf.txt")
     # nodes, edges = cfg("examples/ifElse/ifElseWhile.txt")
-    nodes, edges = cfg("examples/programs/program1.txt")
+    nodes, edges = cfg("examples/programs/program4.txt")
 
 
 

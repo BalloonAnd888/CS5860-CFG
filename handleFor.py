@@ -30,7 +30,9 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
             firstWord = lines[i].split()[0]
             if firstWord == "if":
                 print(f"\nStart handleIf:", lines[i])
-                i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                print(lastNode.nodeID)
+                print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print("After handleIf","Line:", i, "NodeID:", nodeID)
             elif firstWord == "while":
                 print(f"\nStart handleWhile:", lines[i])
@@ -63,7 +65,13 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
         i += 1
     if nodesToConnect:
         edges.append((nodesToConnect[-1].nodeID, forNode.nodeID))
+        print("Edges", edges)
         nodesToConnect.pop()
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
+
+    if any(n.nodeID == lastNode.nodeID for n in nodesToConnect):
+        edges.append((lastNode.nodeID, forNode.nodeID))
+        nodesToConnect = [n for n in nodesToConnect if n.nodeID != lastNode.nodeID]
 
     print("Edges", edges)
     print("Line:", i, "NodeID:", nodeID)

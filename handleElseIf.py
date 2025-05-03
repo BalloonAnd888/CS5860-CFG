@@ -32,7 +32,7 @@ def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifN
             firstWord = lines[i].split()[0]
             if firstWord == "if":
                 print(f"\nStart handleIf:", lines[i])
-                i, nodeID, nodesToConnect = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
                 print("After handleIf","Line:", i, "NodeID:", nodeID)
             elif firstWord == "while":
                 print(f"\nStart handleWhile:", lines[i])
