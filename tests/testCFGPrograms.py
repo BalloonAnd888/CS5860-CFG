@@ -93,6 +93,45 @@ class TestCFGPrograms(unittest.TestCase):
             (10, 11)
         ]
 
+        self.program5Nodes = [
+            "(1) int x = 0;",
+            "(2) int y = 10;",
+            "(3) if (x < y)",
+            "(4) while (x < 5)",
+            "(5) if (x % 2 == 0)",
+            "(6) y = y - x;",
+            "(7) y = y + x;",
+            "(8) x++;",
+            "(9) else if (x == y)", 
+            "(10) for (int j = 0; j < 4; j++)",
+            "(11) x = x + j;",
+            "(12) x = x - 1;",
+            "(13) while (x > -5);",
+            "(14) x = x + y;"
+        ]
+
+        self.program5Edges = [
+            (1, 2),
+            (2, 3),
+            (3, 4),
+            (3, 9),
+            (4, 5),
+            (4, 14),
+            (5, 6),
+            (5, 7),
+            (6, 8),
+            (7, 8),
+            (8, 4),            
+            (9, 10),
+            (9, 12),
+            (10, 11),
+            (10, 14),
+            (11, 10),
+            (12, 13),
+            (13, 12),
+            (13, 14)
+        ]
+
     def testProgram1(self):
         self.testNodes, self.testEdges = cfg("examples/programs/program1.txt")
         self.assertEqual(sorted(self.testEdges), sorted(self.program1Edges))
@@ -106,16 +145,22 @@ class TestCFGPrograms(unittest.TestCase):
             self.assertEqual(f"({node.nodeID}) {node.statement}", self.program2Nodes[i])
     
     def testProgram3(self):
-        testNodes, testEdges = cfg("examples/programs/program3.txt")
-        self.assertEqual(sorted(testEdges), sorted(self.program3Edges))
-        for i, node in enumerate(testNodes):
+        self.testNodes, self.testEdges = cfg("examples/programs/program3.txt")
+        self.assertEqual(sorted(self.testEdges), sorted(self.program3Edges))
+        for i, node in enumerate(self.testNodes):
             self.assertEqual(f"({node.nodeID}) {node.statement}", self.program3Nodes[i])
     
     def testProgram4(self):
-        testNodes, testEdges = cfg("examples/programs/program4.txt")
-        self.assertEqual(sorted(testEdges), sorted(self.program4Edges))
-        for i, node in enumerate(testNodes):
+        self.testNodes, self.testEdges = cfg("examples/programs/program4.txt")
+        self.assertEqual(sorted(self.testEdges), sorted(self.program4Edges))
+        for i, node in enumerate(self.testNodes):
             self.assertEqual(f"({node.nodeID}) {node.statement}", self.program4Nodes[i])
+
+    def testProgram5(self):
+        self.testNodes, self.testEdges = cfg("examples/programs/program5.txt")
+        self.assertEqual(sorted(self.testEdges), sorted(self.program5Edges))
+        for i, node in enumerate(self.testNodes):
+            self.assertEqual(f"({node.nodeID}) {node.statement}", self.program5Nodes[i])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

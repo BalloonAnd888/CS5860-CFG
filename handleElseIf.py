@@ -1,6 +1,6 @@
 from node import Node
 
-def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNode: int, nodesToConnect: list) -> tuple[int, int, list]:
+def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifNode: int, nodesToConnect: list) -> tuple[int, int, list, Node]:
     from handleIf import handleIf
     from handleWhile import handleWhile
     from handleFor import handleFor
@@ -9,6 +9,8 @@ def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifN
     from handleElseIf import handleElseIf
     
     elseIfNode = Node(nodeID, lines[i])
+    lastNode, lastElseNode, lastElseIfNode = None, None, None
+    
     if nodes:
         edges.append((ifNode.nodeID, elseIfNode.nodeID))
         nodes.append(elseIfNode)
@@ -32,7 +34,7 @@ def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifN
             firstWord = lines[i].split()[0]
             if firstWord == "if":
                 print(f"\nStart handleIf:", lines[i])
-                i, nodeID, nodesToConnect, lastNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode, lastElseNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
                 print("After handleIf","Line:", i, "NodeID:", nodeID)
             elif firstWord == "while":
                 print(f"\nStart handleWhile:", lines[i])
@@ -44,16 +46,18 @@ def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifN
                 print(f"\nStart handleFor:", lines[i])
                 i, nodeID, nodesToConnect, lastNode = handleFor(lines, i, nodes, nodeID, edges, nodesToConnect)
                 nodesToConnect.append(lastNode)
+                print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print("Last Node", lastNode.nodeID)
                 print("After handleFor","Line:", i, "NodeID:", nodeID)
             elif firstWord == "do":
                 print(f"\nStart handleDo:", lines[i])
-                i, nodeID, nodesToConnect = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
                 print("After handleDoWhile","Line:", i, "NodeID:", nodeID)
             else:
                 node = Node(nodeID, lines[i])
                 print(f"\n{node.nodeID}", node.statement, "Statement")
                 nodes.append(node)
+                lastNode = node
                 print("Nodes:", [f"({n.nodeID})" for n in nodes])
                 edges.append((nodesToConnect[-1].nodeID, node.nodeID))
                 nodesToConnect.pop()
@@ -64,9 +68,11 @@ def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifN
         i += 1
 
     if i + 1 < len(lines) and lines[i + 1].startswith("else if", 0, 7):
-        i, nodeID, nodesToConnect = handleElseIf(lines, i + 1, nodes, nodeID, edges, elseIfNode.nodeID, nodesToConnect)
+        i, nodeID, nodesToConnect, lastElseIfNode = handleElseIf(lines, i + 1, nodes, nodeID, edges, elseIfNode.nodeID, nodesToConnect)
     elif i + 1 < len(lines) and lines[i + 1].startswith("else", 0, 4):
-        i, nodeID, nodesToConnect = handleElse(lines, i + 1, nodes, nodeID, edges, elseIfNode.nodeID, nodesToConnect)
+        nodesToConnect.append(elseIfNode)
+        print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
+        i, nodeID, nodesToConnect, lastElseNode = handleElse(lines, i + 1, nodes, nodeID, edges, elseIfNode.nodeID, nodesToConnect)
         print("Out of Else")
     elif i + 1 < len(lines) and lines[i + 1] != "}":
         edges.append((ifNode.nodeID, nodeID))
@@ -76,4 +82,4 @@ def handleElseIf(lines: list, i: int, nodes: list, nodeID: int, edges: list, ifN
     print("Edges", edges)
     print("Line:", i, "NodeID:", nodeID)
 
-    return i, nodeID, nodesToConnect
+    return i, nodeID, nodesToConnect, lastNode

@@ -17,7 +17,7 @@ class TestHandleIf(unittest.TestCase):
         self.nodesToConnect = []
 
     def testHandleIf(self):
-        i, nodeID, nodesToConnect, lastNode = handleIf(self.lines, self.i, self.nodes, self.nodeID, self.edges, self.nodesToConnect)
+        i, nodeID, nodesToConnect, lastNode, lastElseNode = handleIf(self.lines, self.i, self.nodes, self.nodeID, self.edges, self.nodesToConnect)
 
         self.assertEqual(len(self.nodes), 3)
         self.assertEqual(len(self.edges), 3)

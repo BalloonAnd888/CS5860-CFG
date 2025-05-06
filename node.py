@@ -3,3 +3,4 @@ class Node:
         self.nodeID = nodeID
         self.statement = statement
         self.edges = []
+        

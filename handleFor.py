@@ -6,6 +6,8 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
     from handleDoWhile import handleDoWhile
 
     forNode = Node(nodeID, lines[i])
+    lastNode, lastElseNode, lastElseIfNode = None, None, None
+
     if nodes:
         edges.append((nodesToConnect[-1].nodeID, forNode.nodeID))
         nodes.append(forNode)
@@ -30,7 +32,7 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
             firstWord = lines[i].split()[0]
             if firstWord == "if":
                 print(f"\nStart handleIf:", lines[i])
-                i, nodeID, nodesToConnect, lastNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode, lastElseNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
                 print(lastNode.nodeID)
                 print("Nodes to connect:", [f"({n.nodeID}) {n.statement}" for n in nodesToConnect])
                 print("After handleIf","Line:", i, "NodeID:", nodeID)
@@ -48,7 +50,7 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
                 print("After handleFor","Line:", i, "NodeID:", nodeID)
             elif firstWord == "do":
                 print(f"\nStart handleDo:", lines[i])
-                i, nodeID, nodesToConnect = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+                i, nodeID, nodesToConnect, lastNode = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
                 print("After handleDoWhile","Line:", i, "NodeID:", nodeID)
             else:
                 node = Node(nodeID, lines[i])
@@ -63,6 +65,7 @@ def handleFor(lines: list, i: int, nodes: list, nodeID: int, edges: list, nodesT
                 print("Edges:", edges)
                 nodeID += 1
         i += 1
+        
     if nodesToConnect:
         edges.append((nodesToConnect[-1].nodeID, forNode.nodeID))
         print("Edges", edges)

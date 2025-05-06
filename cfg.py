@@ -14,13 +14,14 @@ def cfg(filename: str) -> tuple[list, list]:
     edges = []
     nodeID = 1
     i = 0
+    lastNode, lastElseNode, lastElseIfNode = None, None, None
 
     while i < len(lines):
         firstWord = lines[i].split()[0]
 
         if firstWord == "if":
             print(f"\nStart handleIf:", lines[i])
-            i, nodeID, nodesToConnect, lastNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
+            i, nodeID, nodesToConnect, lastNode, lastElseNode = handleIf(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleIf", "Line:", i, "NodeID:", nodeID)
         elif firstWord == "while":
             print(f"\nStart handleWhile:", lines[i])
@@ -36,7 +37,7 @@ def cfg(filename: str) -> tuple[list, list]:
             print("After handleFor", "Line:", i, "NodeID:", nodeID)
         elif firstWord == "do":
             print(f"\nStart handleDo:", lines[i])
-            i, nodeID, nodesToConnect = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
+            i, nodeID, nodesToConnect, lastNode = handleDoWhile(lines, i, nodes, nodeID, edges, nodesToConnect)
             print("After handleDoWhile", "Line:", i, "NodeID:", nodeID)
         elif lines[i] not in {"{", "}"}:
             node = Node(nodeID, lines[i])
@@ -64,9 +65,8 @@ if __name__ == "__main__":
     # nodes, edges = cfg("examples/while/whileWithOther.txt")
     # nodes, edges = cfg("examples/elseIf/elseIf.txt")
     # nodes, edges = cfg("examples/ifElse/ifElseWhile.txt")
-    nodes, edges = cfg("examples/programs/program4.txt")
-
-
+    nodes, edges = cfg("examples/programs/program5.txt")
+    # nodes, edges = cfg("examples/t2.txt")
 
     print("\nVertices (Nodes):")
     for n in nodes:

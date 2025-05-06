@@ -1,0 +1,20 @@
+int x = 0;
+int y = 10;
+
+if (x < y) 
+{
+    while (x < 5) 
+    {
+        if (x % 2 == 0) 
+        {
+            y = y - x;
+        }
+        else 
+        {
+            y = y + x;
+        }
+        x++;
+    }
+}
+
+x += 1
