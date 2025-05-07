@@ -1,6 +1,0 @@
-It first reads the input file line by line and ignores any comments. The lines are stored into a list called lines.
-It then goes through each line one by one and depending on what the line starts with (if, while, for, do, or a normal statement), it calls the appropriate helper function. 
-The helper function for if, while and for creates a node for the condition. Then, it processes all the statements inside the block.
-The helper function for do-while creates a node for the first statement inside the do block, processes the statements inside, and then process the while condition at the end. 
-Each newly created node is connected to previous nodes from the list called nodesToConnect.
-Finally, the program prints out a list of all nodes and a list of all edges.

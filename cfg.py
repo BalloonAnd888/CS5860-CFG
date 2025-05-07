@@ -62,11 +62,7 @@ def cfg(filename: str) -> tuple[list, list]:
     return nodes, edges
 
 if __name__ == "__main__":
-    # nodes, edges = cfg("examples/while/whileWithOther.txt")
-    # nodes, edges = cfg("examples/elseIf/elseIf.txt")
-    # nodes, edges = cfg("examples/ifElse/ifElseWhile.txt")
     nodes, edges = cfg("examples/programs/program5.txt")
-    # nodes, edges = cfg("examples/t2.txt")
 
     print("\nVertices (Nodes):")
     for n in nodes:
